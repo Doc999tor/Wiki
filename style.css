@@ -29,13 +29,20 @@ aside#links_block {
 	width: 70%;
 }
 #right_block header {position: relative;z-index: 0;}
+#right_block header:hover #watch_btn {
+	right: 50px;
+}
 #right_block header h1 {padding-right: 20%;}
 #right_block #watch_btn {
 	position: absolute;
 	top: 0;right: 20px;
+	transition: right 1s;
 }
 
-main {position: relative;}
+main {position: relative;transition: color .5s;}
+main:hover {
+	color: green;
+}
 main h2#sticky {
 	position: sticky;
 	top: 0;
