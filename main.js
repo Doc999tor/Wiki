@@ -24,3 +24,8 @@ function printDigitName(digit) {
 	}
 	console.log(digitName);
 }
+
+for (var i = 1; i <= 10; i++) {
+	// console.log(i % 2 == true ? 'Odd' : 'Even');
+	console.log(i + ' ' + (i % 2 ? 'Odd' : 'Even'));
+}
