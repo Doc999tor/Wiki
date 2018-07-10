@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="goods"></div>
+	<div id="busket">
+		<span>orderedProducts are: </span>
+		<span id="products"></span>
+		<button id="clear_busket">Clear</button>
+	</div>
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+	<script>
+
+var storeGenerator = function () {
+	var orderedProducts = [];
+	return {
+		getAll: function () {return orderedProducts;},
+		print: function () {
+			var print = '';
+			if (orderedProducts.length) {
+				for (var i = 0; i < orderedProducts.length; i++) {
+					print += orderedProducts[i].name + ' ';
+				}
+			} else {
+				print = 'nothing'
+			}
+			$('#products').text(print);
+		},
+		order: function (product) {
+			orderedProducts.push(product);
+			this.print();
+			// backup
+			localStorage.setItem('products', JSON.stringify(orderedProducts))
+		},
+		clear: function () {
+			orderedProducts = []
+			this.print()
+		},
+	}
+}
+var store = storeGenerator();
+
+var productsData = [
+	{name: 'hummus', img: 'hummus.jpg'},
+	{name: 'tkhina', img: 'tkhina.jpg'}
+]
+var goodsContainer = $('#goods');
+
+var backedUpProductsJson = localStorage.getItem('products');
+if (backedUpProductsJson) {
+	var backedUpProductsList = JSON.parse(backedUpProductsJson);
+	for (var i = 0; i < backedUpProductsList.length; i++) {
+		store.order(backedUpProductsList[i])
+	}
+}
+
+store.print();
+for (var i = 0; i < productsData.length; i++) {
+	goodsContainer.append(createProduct(productsData[i]))
+}
+$('#clear_busket').click(function(event) {
+	store.clear();
+});
+
+function createProduct(productData) {
+	var container = $('<div>', {
+		class: "product",
+	});
+
+	/*var productName = */$('<span>', {
+		text: productData.name,
+	}).appendTo(container)
+	/*var productImage = */$('<img>', {
+		src: productData.img,
+	}).appendTo(container)
+
+	$('<button>', {
+		text: `add ${productData.name} to a busket`,
+		click: function (event) {
+			store.order(productData);
+		},
+	}).appendTo(container)
+
+	return container;
+}
+
+	</script>
+</body>
+</html>
