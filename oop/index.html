@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" src="Calendar.js"></script>
+	<script>
+		var calendar = new Calendar('June');
+		calendar.render();
+		document.querySelector('button').addEventListener('click', e => {
+			calendar.destroy()
+		});
+	</script>
+</body>
+</html>
